@@ -1,4 +1,4 @@
-package com.devsuperior.demo.controllers;
+package com.devsuperior.dscatalog.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -7,22 +7,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.devsuperior.demo.dto.EmailDTO;
-import com.devsuperior.demo.services.EmailService;
+import com.devsuperior.dscatalog.dto.EmailDTO;
+import com.devsuperior.dscatalog.services.AuthService;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/email")
-public class EmailController {
+@RequestMapping(value = "/auth")
+public class AuthResource {
 
 	@Autowired
-	private EmailService emailService;
+	private AuthService	authService;
 	
-	@PostMapping
-	public ResponseEntity<Void> sendEmail(@Valid @RequestBody EmailDTO obj) {
-		emailService.sendEmail(obj);
+	@PostMapping(value = "recover-token")
+	public ResponseEntity<Void> createRecoverToken(@Valid @RequestBody EmailDTO body){
+		authService.createRecoverToken(body);
 		return ResponseEntity.noContent().build();
-	}
+	}	
 }
-
